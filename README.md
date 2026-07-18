@@ -1,56 +1,62 @@
-# javascript-winwheel
-Create spinning prize wheels on HTML canvas with Winwheel.js
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Roue de la Fortune</title>
+    <style>
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 50px auto;
+        }
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid #333;
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.1, 1);
+        }
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid red;
+            z-index: 10;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
 
-## Description
-Winwheel.js is a feature packed JavaScript library that allows you to easily create HTML5 canvas Winning / Prize Wheels, Pie graphs and other things using a highly configurable JavaScript class.
+<div class="wheel-container">
+    <div class="pointer"></div>
+    <img src="votre-image-de-roue.png" id="wheel" class="wheel" alt="Roue">
+</div>
 
-Wheels can be animated using GreenSock's Animation Platform (TweenMax.js) which contain easing functions and many other powerful animation features.
+<button onclick="spinWheel()">Tourner la roue</button>
 
-Winwheel.js Features Include:
-* Easy to use, highly configurable JavaScript classes.
-* Draw wheels using code generated segments or graphically rich images.
-* Responsive features so wheels display correctly on different sized devices.
-* Numerous text orientation, direction, size and colour options.
-* Random or Pre-calculated prize stopping location.
-* Play sounds while the wheel is spinning including a "tick" sound.
-* Ability to get the segment the user clicked upon.
-* Fully commented source code. Plenty of tutorials and other documentation.
-* Winwheel.js is free to use with an open source license.
+<script>
+    let currentRotation = 0;
 
-## Example
-```javascript
-let theWheel = new Winwheel({
-    'numSegments'    : 4,
-    'segments'       :
-    [
-        {'fillStyle' : '#eae56f', 'text' : 'Prize One'},
-        {'fillStyle' : '#89f26e', 'text' : 'Prize Two'},
-        {'fillStyle' : '#7de6ef', 'text' : 'Prize Three'},
-        {'fillStyle' : '#e7706f', 'text' : 'Prize Four'}
-    ],
-    'animation' :
-    {
-        'type'     : 'spinToStop',
-        'duration' : 5,
-        'spins'    : 8
+    function spinWheel() {
+        // Génère une rotation aléatoire d'au moins 5 tours complets + un angle aléatoire
+        const extraDegrees = Math.floor(Math.random() * 360);
+        currentRotation += 1800 + extraDegrees; 
+        
+        document.getElementById('wheel').style.transform = `rotate(${currentRotation}deg)`;
     }
-});
-```
+</script>
 
-## More examples
-See the /examples folder for examples of some of the types of things you can create with Winwheel.js, to see these examples in action please visit the examples section on my website http://dougtesting.net/winwheel/examples
-
-## Tutorials and other documentation
-Please visit http://dougtesting.net/winwheel/docs to see a complete set of tutorials on how to use Winwheel.js as well as other documentation such as class references.
-
-## Maintainer
-Douglas McKechie https://github.com/zarocknz
-
-## Please note
-I am not planning to do any further work on this library as my day job keeps me very busy and after 7 years of Winwheel I would rather spend
-any spare time I do have for personal coding on other projects.
-
-So this means if you would like a version of Winwheel.js for your current JavaScript framework of choice its up to you or others in the community
-to create it. If you create one perhaps open an Issue with the details so others can find and use it. Thanks.
-
-You are welcome to ask questions using the Issues feature of Github, but please don't be offended if I take quite a long time to respond to them. To be honest its probably quicker to ask the Stackoverflow community for help https://stackoverflow.com/search?tab=newest&q=Winwheel
+</body>
+</html>
